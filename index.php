@@ -31,19 +31,19 @@
         <div class="option-container row">
             <div class="option-column-container">
                 <div class="col-5 first">
-                    <div id="option-1" class="option-a">A: Kolar</div>
-                    <div id="option-3" class="option-c">C: Surat</div>
+                    <div class="option-a"><button id="option-1" class="option-button" onclick="check_ans('1')"></button></div>
+                    <div class="option-c"><button id="option-3" class="option-button" onclick="check_ans('3')"></button></div>
                 </div>
                 <div class="col-5 second">
-                    <div id="option-2" class="option-b">B: Dhanbad</div>
-                    <div id="option-4" class="option-d">D: Kanyakumari</div>
+                    <div class="option-b"><button id="option-2" class="option-button" onclick="check_ans('2')"></button></div>
+                    <div class="option-d"><button id="option-4" class="option-button" onclick="check_ans('4')"></button></div>
                 </div>
             </div>
         </div>
     </div>
     <!-- <script> -->
 
-        <!-- // function countdown_timer(t)
+    <!-- // function countdown_timer(t)
         // {
         //     if( t == 60 || t == 45)
         //     {
@@ -90,46 +90,95 @@
             // } 
         // }        -->
     <!-- </script> -->
-                <?php
-                    include_once('connectvars.php');
-                    $dbc = mysqli_connect(DB_HOST,DB_USER,DB_PASS,DB_NAME)
-                        or die('Failed to connect to server');
+    <?php
+    include_once('connectvars.php');
+    $dbc = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME)
+        or die('Failed to connect to server');
 
-                        $total_ques = 6;
-                        $ques_no_php = (int)((rand( 1,$total_ques)));
-                    
-                        
-                        $query = "SELECT * FROM quiz WHERE id =" . $ques_no_php . " ";
-                        $result = mysqli_query($dbc,$query)
-                                or die('error in quering dB');
-                        while($row = mysqli_fetch_array($result))
-                        {
-                            setcookie('ques',$row['ques']);
-                            setcookie('option_1',$row['option_1']);
-                            setcookie('option_2',$row['option_2']);
-                            setcookie('option_3',$row['option_3']);
-                            setcookie('option_4',$row['option_4']);
-                            setcookie('ans',$row['ans']);
-                            break;
-                        }
-                   
-                ?>   
-                <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>        
-                <script>
-                    var ques = Cookies.get('ques');
-                    var option_1 = Cookies.get('option_1');
-                    var option_2 = Cookies.get('option_2');
-                    var option_3 = Cookies.get('option_3');
-                    var option_4 = Cookies.get('option_4');
-                    var ans = Cookies.get('option_5');
-                
-                    document.getElementById('ques').innerHTML = ques;
-                    document.getElementById('option-1').innerHTML = option_1;
-                    document.getElementById('option-2').innerHTML = option_2;
-                    document.getElementById('option-3').innerHTML = option_3;
-                    document.getElementById('option-4').innerHTML = option_3;
-                </script>
-    
+    $total_ques = 6;
+    $ques_no_php = (int)((rand(1, $total_ques)));
+
+
+    $query = "SELECT * FROM quiz WHERE id =" . $ques_no_php . " ";
+    $result = mysqli_query($dbc, $query)
+        or die('error in quering dB');
+    while ($row = mysqli_fetch_array($result)) {
+        setcookie('ques', $row['ques']);
+        setcookie('option_1', $row['option_1']);
+        setcookie('option_2', $row['option_2']);
+        setcookie('option_3', $row['option_3']);
+        setcookie('option_4', $row['option_4']);
+        setcookie('ans', $row['ans']);
+        break;
+    }
+
+    ?>
+    <audio hidden autoplay>
+        <source src="audio/kbc_ ques.mp3" type="audio/mpeg">
+      </audio>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+    <script>
+        var ques = Cookies.get('ques');
+        var option_1 = Cookies.get('option_1');
+        var option_2 = Cookies.get('option_2');
+        var option_3 = Cookies.get('option_3');
+        var option_4 = Cookies.get('option_4');
+        var ans = Cookies.get('ans');
+
+        document.getElementById('ques').innerHTML = ques;
+        document.getElementById('option-1').innerHTML = option_1;
+        document.getElementById('option-2').innerHTML = option_2;
+        document.getElementById('option-3').innerHTML = option_3;
+        document.getElementById('option-4').innerHTML = option_3;
+        console.log(ans);
+
+        function output(id, value) {
+            document.getElementById(id).innerHTML = value;
+        }
+
+        function countdown_timer(t) {
+            if (t == 60 || t == 45) {
+                var time_left = t;
+                var timer = setInterval(function() {
+
+                    time_left -= 1;
+                    output('time', time_left);
+                    if (time_left <= 0) {
+                        status = 0;
+                        output('time', 'Time is up')
+                        clearInterval(timer);
+                    }
+
+                }, 1000)
+            }
+        }
+
+        function check_ans(option_no) {
+            let option = 'option-' + option_no;
+            
+            if(ans == option_no)
+            {
+                document.getElementById(option).style.backgroundColor = 'Green';
+            }
+            else{
+                document.getElementById(option).style.backgroundColor = 'Red';
+            }
+        }
+        var status = 1;
+        if (status == 1) {
+
+            // code for timer
+            // if (i <= 5)
+            var total_time = 45;
+            // else if (i > 5 && i <= 10)
+            // var total_time = 60;
+            // else
+            // var total_time = null;
+
+            countdown_timer(total_time);
+        }
+    </script>
+
 </body>
 
 </html>
