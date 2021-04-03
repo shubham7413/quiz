@@ -173,10 +173,16 @@ div.details-container {
   z-index: 5;
   color: black;
 }
-div.details-container p{
+div.details-container p#game-end-detail{
   width: 30vw;
   margin: auto;
+  text-align: center;
   padding-top: 30vh;
+}
+div.details-container p#score{
+  width: 30vw;
+  margin: auto;
+  
   text-align: center;
 }
 div.details-container div.play-again-container {
@@ -196,7 +202,7 @@ div.details-container div.play-again-container button {
 
 div.game-start-container {
   position: fixed;
-  display: none;
+
   width: 100vw;
   height: 100vh;
   background-color: rgba(255, 255, 255, 0.753);
