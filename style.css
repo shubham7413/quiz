@@ -152,6 +152,82 @@ span.no {
   padding-left: 10px;
   
 }
-div.section div.option-container div.option-column-container div.second {
+div.option-column-container div.second {
   margin-left: 16vw;
 }
+
+div.game-end-container {
+  position: fixed;
+  display: none;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.753);
+  top: 0;
+}
+div.details-container {
+  
+  width: 40vw;
+  height: 100vh;
+  margin: auto;
+  background-color: rgb(255, 255, 255);
+  z-index: 5;
+  color: black;
+}
+div.details-container p{
+  width: 30vw;
+  margin: auto;
+  padding-top: 30vh;
+  text-align: center;
+}
+div.details-container div.play-again-container {
+  position: relative;
+  width: 20vw;
+  height: 5vh;
+  margin: auto;
+  margin-top: 5vh;
+  background-color: black;
+}
+div.details-container div.play-again-container button {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+
+div.game-start-container {
+  position: fixed;
+  display: none;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.753);
+  top: 0;
+}
+div.start-container {
+  
+  width: 40vw;
+  height: 100vh;
+  margin: auto;
+  background-color: rgb(255, 255, 255);
+  z-index: 5;
+  color: black;
+}
+div.start-container p{
+  width: 30vw;
+  margin: auto;
+  padding-top: 30vh;
+  text-align: center;
+}
+div.start-container div.play-container {
+  position: relative;
+  width: 20vw;
+  height: 5vh;
+  margin: auto;
+  margin-top: 5vh;
+  background-color: black;
+}
+div.start-container div.play-container button {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+

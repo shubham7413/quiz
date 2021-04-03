@@ -43,6 +43,22 @@
             </div>
         </div>
     </div>
+    <div class="game-end-container">
+        <div class="details-container">
+            <p id="score">AAPNE JITA: 10,000</p>
+            <div class="play-again-container">
+                <button>Play Again</button>
+            </div>
+        </div>
+    </div>
+    <div class="game-start-container">
+        <div class="start-container">
+            <p id="kbc">KAUN BANEGA CROREPATI</p>
+            <div class="play-container">
+                <button>Play</button>
+            </div>
+        </div>
+    </div>
     <!-- <script> -->
 
     <!-- // function countdown_timer(t)
@@ -92,7 +108,7 @@
             // } 
         // }        -->
     <!-- </script> -->
-    <?php
+<?php
     include_once('connectvars.php');
     $dbc = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME)
         or die('Failed to connect to server');
@@ -114,7 +130,7 @@
         break;
     }
 
-    ?>
+?>
     <audio hidden autoplay>
         <source src="audio/kbc_ ques.mp3" type="audio/mpeg">
     </audio>
@@ -164,6 +180,11 @@
             } else {
                 document.getElementById(option).style.backgroundColor = 'Red';
             }
+        }
+
+        function game_end()
+        {
+
         }
         var status = 1;
         if (status == 1) {
