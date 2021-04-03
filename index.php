@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KAUN BANEGA CROREPATI</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -31,12 +33,12 @@
         <div class="option-container row">
             <div class="option-column-container">
                 <div class="col-5 first">
-                    <div class="option-a"><button id="option-1" class="option-button" onclick="check_ans('1')"></button></div>
-                    <div class="option-c"><button id="option-3" class="option-button" onclick="check_ans('3')"></button></div>
+                    <div class="option-a"><button class="option-button" id="option-button-1" onclick="check_ans('1')"><span class="no">A:</span><span id="option-1"></span></button></div>
+                    <div class="option-c"><button class="option-button" id="option-button-3" onclick="check_ans('3')"><span class="no">C:</span><span id="option-3"></span></button></div>
                 </div>
                 <div class="col-5 second">
-                    <div class="option-b"><button id="option-2" class="option-button" onclick="check_ans('2')"></button></div>
-                    <div class="option-d"><button id="option-4" class="option-button" onclick="check_ans('4')"></button></div>
+                    <div class="option-b"><button class="option-button" id="option-button-2" onclick="check_ans('2')"><span class="no">B:</span><span id="option-2"></span></button></div>
+                    <div class="option-d"><button class="option-button" id="option-button-4" onclick="check_ans('4')"><span class="no">D:</span><span id="option-4"></span></button></div>
                 </div>
             </div>
         </div>
@@ -115,7 +117,7 @@
     ?>
     <audio hidden autoplay>
         <source src="audio/kbc_ ques.mp3" type="audio/mpeg">
-      </audio>
+    </audio>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
     <script>
         var ques = Cookies.get('ques');
@@ -145,7 +147,8 @@
                     output('time', time_left);
                     if (time_left <= 0) {
                         status = 0;
-                        output('time', 'Time is up')
+                        if(time_left < 0)
+                            output('time', '0')
                         clearInterval(timer);
                     }
 
@@ -154,13 +157,11 @@
         }
 
         function check_ans(option_no) {
-            let option = 'option-' + option_no;
-            
-            if(ans == option_no)
-            {
+            let option = 'option-button-' + option_no;
+
+            if (ans == option_no) {
                 document.getElementById(option).style.backgroundColor = 'Green';
-            }
-            else{
+            } else {
                 document.getElementById(option).style.backgroundColor = 'Red';
             }
         }
