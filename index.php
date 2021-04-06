@@ -13,34 +13,59 @@
 
 <body>
     <script>
-        
-        <?php
-        if (session_status() === PHP_SESSION_NONE)
-            session_start();
-        // if (!isset($_SESSION['status'])) {
-        //     $_SESSION['status'] = '1';
-        // }
-        ?>
-        
+        var ques = "a";
+        var option_1 = "";
+        var option_2 = "";
+        var option_3 = "";
+        var option_4 = "";
+        var ans = "";
+        var ques_no = 0;
+        var ques_serial_no = [];
+        var total_time = 0;
         var score = 0;
+        var arr = ['5000', '10000', '20000', '40000', '80000', '160000', '320000', '640000', '1250000', '2500000', '5000000', '1 Crore', '3 Crore', '5 Crore', '7 Crore'];
+
+        function get_ques(mycallback) {
+            //using random() to get a ques_serial_no
+            let total_ques = 6;
+            let temp = ((Math.random()) * total_ques) + 1;
+            temp = parseInt(temp);
+            while (!(ques_serial_no.indexOf(temp))) {
+                temp = ((Math.random()) * total_ques) + 1;
+            }
+            ques_serial_no.push(temp);
+            console.log(temp);
+            console.log(ques_serial_no);
+            console.log("ques.php?id=" + temp);
+            //get the ques
+            var xhttp = new XMLHttpRequest();
+            console.log(xhttp.readyState);
+            console.log(xhttp.status);
+            xhttp.open("GET", "ques.php?id=" + temp, true);
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+
+                    // window.show = this.responseText;
+                    // show = JSON.parse(show);
+                    // document.getElementById('ques').innerHTML = show.ans;
+                    // console.log(show);
+                    mycallback(this);
+                }
+            };
+
+            xhttp.send();
+
+        }
+
         function game_start() {
-            console.log('start_game_executed');
-            document.getElementById('game-start').style.display = 'block';
-            <?php
-            $_SESSION['score'] = '1';
-            ?>
-            window.location.reload();
+            get_ques(display_ques);
+
         }
 
         function play_again() {
-            <?php
-            $_SESSION['score'] = '1';
-            ?>
-            window.location.reload();
 
+            get_ques();
         }
-        if ((<?php echo $_SESSION['status']; ?>) == 0)
-            game_start();
     </script>
     <div class="main">
         <div class="logo-container row">
@@ -91,112 +116,100 @@
             </div>
         </div>
     </div>
-    <?php
-    include_once('connectvars.php');
-    $dbc = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME)
-        or die('Failed to connect to server');
 
-    $total_ques = 6;
-    $ques_no_php = (int)((rand(1, $total_ques)));
-
-
-    $query = "SELECT * FROM quiz WHERE id =" . $ques_no_php . " ";
-    $result = mysqli_query($dbc, $query)
-        or die('error in quering dB');
-    while ($row = mysqli_fetch_array($result)) {
-        setcookie('ques', $row['ques']);
-        setcookie('option_1', $row['option_1']);
-        setcookie('option_2', $row['option_2']);
-        setcookie('option_3', $row['option_3']);
-        setcookie('option_4', $row['option_4']);
-        setcookie('ans', $row['ans']);
-        break;
-    }
-    ?>
 
     <audio hidden id="ques_presenting_audio">
         <source src="audio/kbc_ ques.mp3" type="audio/mpeg">
     </audio>
-    <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
     <script>
-
         function output(id, value) {
             document.getElementById(id).innerHTML = value;
         }
 
-        function countdown_timer(t) {
-            if (t == 60 || t == 45) {
-                var time_left = t;
-                var timer = setInterval(function() {
+        function display_ques(xhttp) {
+            // 
+            window.myobj = xhttp.responseText;
+            myobj = JSON.parse(myobj);
+            document.getElementById('game-start').style.display = "none";
+            ques = myobj.ques;
+            option_1 = myobj.option_1;
+            option_2 = myobj.option_2;
+            option_3 = myobj.option_3;
+            option_4 = myobj.option_4;
+            ans = myobj.ans;
+            ques_no += 1;
 
-                    time_left -= 1;
-                    output('time', time_left);
-                    if (time_left <= 0) {
-                        status = 0;
-                        wrong("Time's Up");
-                        if (time_left < 0)
-                            output('time', '0')
-                        clearInterval(timer);
-                    }
-
-                }, 1000)
-            }
-        }
-
-        function correct() {
-            <?php
-            $_SESSION['score'] += '10';
-            ?>
-            window.location.reload();
-        }
-
-        function wrong(detail) {
-            output('game-end-detail', detail);
-            document.getElementById('game-end-detail').style.color = 'red';
-            output('score', <?php echo $_SESSION['score']; ?>);
-            document.getElementById('game-end').style.display = 'block';
-        }
-
-        function check_ans(option_no) {
-            let option = 'option-button-' + option_no;
-
-            if (ans == option_no) {
-                document.getElementById(option).style.backgroundColor = 'Green';
-                correct()
-            } else {
-                document.getElementById(option).style.backgroundColor = 'Red';
-                wrong('Wrong Ans');
-            }
-        }
-
-            var ques = Cookies.get('ques');
-            var option_1 = Cookies.get('option_1');
-            var option_2 = Cookies.get('option_2');
-            var option_3 = Cookies.get('option_3');
-            var option_4 = Cookies.get('option_4');
-            var ans = Cookies.get('ans');
-
-            document.getElementById('ques').innerHTML = ques;
-            document.getElementById('option-1').innerHTML = option_1;
-            document.getElementById('option-2').innerHTML = option_2;
-            document.getElementById('option-3').innerHTML = option_3;
-            document.getElementById('option-4').innerHTML = option_3;
-
-            var status = 1;
-            if (status == 1) {
-
-                // code for timer
-                // if (i <= 5)
-                var total_time = 45;
-                // else if (i > 5 && i <= 10)
-                // var total_time = 60;
-                // else
-                // var total_time = null;
-
-                countdown_timer(total_time);
-            }
+            output('ques', ques);
+            output('option-1', option_1);
+            output('option-2', option_2);
+            output('option-3', option_3);
+            output('option-4', option_4);
 
             document.getElementById('ques_presenting_audio').play();
+
+            // code for timer
+            if (ques_no <= 5)
+                total_time = 45;
+            else if (ques_no > 5 && ques_no <= 10)
+                total_time = 60;
+            else
+                var total_time = null;
+
+            countdown_timer(total_time,1);
+        }
+
+        // function reset() {
+        //     clearInterval(timer);
+        //     document.getElementById(option).style.backgroundColor = 'rgb(0, 2, 73)';
+        // }
+
+        function countdown_timer(t, counter) {
+            if (t == 60 || t == 45) {
+                if (counter == 1) {
+                    var time_left = t;
+                    var timer = setInterval(function() {
+
+                        time_left -= 1;
+                        output('time', time_left);
+                        if (time_left <= 0) {
+                            status = 0;
+                            wrong("Time's Up");
+                            if (time_left < 0)
+                                output('time', '0')
+                            reset();
+                        }
+
+                    }, 1000)
+                } else {
+                    clearInterval(timer);
+                }
+            }
+        }
+
+            function correct() {
+                score = arr[(ques_no - 1)];
+                countdown_timer(45,0);
+                get_ques(display_ques);
+
+            }
+
+            function wrong(detail) {
+                output('score', score);
+                output('game-end-detail', detail);
+                clearInterval(timer);
+            }
+
+            function check_ans(option_no) {
+                let option = 'option-button-' + option_no;
+
+                if (ans == option_no) {
+                    document.getElementById(option).style.backgroundColor = 'Green';
+                    correct()
+                } else {
+                    document.getElementById(option).style.backgroundColor = 'Red';
+                    wrong('Wrong Ans');
+                }
+            }
     </script>
 
 </body>
