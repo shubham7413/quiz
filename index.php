@@ -62,10 +62,6 @@
 
         }
 
-        function play_again() {
-
-            get_ques();
-        }
     </script>
     <div class="main">
         <div class="logo-container row">
@@ -104,7 +100,7 @@
             <p id="game-end-detail"></p>
             <p id="jita">AAPNE JITA: <span id="score"></span></p>
             <div class="play-again-container">
-                <button onclick="play_again()">Play Again</button>
+                <button onclick="game_start()">Play Again</button>
             </div>
         </div>
     </div>
@@ -190,9 +186,12 @@
         }
 
         function wrong(detail) {
-            output('score', score);
+            console.log('inside');
+            document.getElementById('game-end').style.display = 'block';
+            setTimeout(function(){
+                output('score', score);
             output('game-end-detail', detail);
-
+            },2000);
         }
 
         function check_ans(option_no) {

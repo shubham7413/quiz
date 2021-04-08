@@ -1,10 +1,7 @@
 * {
   box-sizing: border-box;
 }
-:root {
-  --blue: rgb(107, 1, 234);
-  --dark-purple: rgb(11, 0, 44);
-}
+
 .row::after {
   content: "";
   display: table;
@@ -55,10 +52,10 @@ body {
   height: 100vh;
   margin: 0;
   font-size: 25px;
-  background-color: #4d07a3;
+  background-image: linear-gradient(116deg, #76b1ff, rgb(102 85 255), #1c1cff);
   color: white;
   font-weight: 500;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 div.logo {
@@ -113,8 +110,8 @@ div.option-column-container {
 .option-b {
   margin-bottom: 10px;
 }
-div.col-5{
-    padding: 0;
+div.col-5 {
+  padding: 0;
 }
 
 .ques-container {
@@ -125,10 +122,10 @@ div.col-5{
 .option-a,
 .option-b,
 .option-c,
-.option-d{
-    height: 40px;
-    background-color: transparent;
-    border-radius: 5px;
+.option-d {
+  height: 40px;
+  background-color: transparent;
+  border-radius: 5px;
 }
 .option-button {
   width: 100%;
@@ -142,15 +139,14 @@ div.col-5{
   border-radius: 5px;
   padding: 0;
 }
-button:focus{
+button:focus {
   outline: none;
 }
 span.no {
   text-align: left;
-  color: rgb(221,223,116);
+  color: rgb(221, 223, 116);
   padding-right: 10px;
   padding-left: 10px;
-  
 }
 div.option-column-container div.second {
   margin-left: 16vw;
@@ -165,7 +161,6 @@ div.game-end-container {
   top: 0;
 }
 div.details-container {
-  
   width: 40vw;
   height: 100vh;
   margin: auto;
@@ -173,15 +168,15 @@ div.details-container {
   z-index: 5;
   color: black;
 }
-div.details-container p#game-end-detail{
+div.details-container p#game-end-detail {
   width: 30vw;
   margin: auto;
   text-align: center;
   padding-top: 30vh;
 }
-div.details-container p#jita{
+div.details-container p#jita {
   width: 30vw;
-  margin: auto; 
+  margin: auto;
   text-align: center;
 }
 div.details-container div.play-again-container {
@@ -198,7 +193,6 @@ div.details-container div.play-again-container button {
   height: 100%;
 }
 
-
 div.game-start-container {
   position: fixed;
   /* display: none; */
@@ -208,7 +202,6 @@ div.game-start-container {
   top: 0;
 }
 div.start-container {
-  
   width: 40vw;
   height: 100vh;
   margin: auto;
@@ -216,7 +209,7 @@ div.start-container {
   z-index: 5;
   color: black;
 }
-div.start-container p{
+div.start-container p {
   width: 30vw;
   margin: auto;
   padding-top: 30vh;
@@ -235,4 +228,3 @@ div.start-container div.play-container button {
   width: 100%;
   height: 100%;
 }
-
