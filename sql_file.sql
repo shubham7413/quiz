@@ -6,7 +6,7 @@ CREATE TABLE quiz(
     option_2 varchar(30),
     option_3 varchar(30),
     option_4 varchar(30),
-    ans TINYINT,
+    ans TINYINT
 )
 
 -- populate sql file

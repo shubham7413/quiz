@@ -58,15 +58,23 @@
         }
 
         function game_start() {
+            
             get_ques(display_ques);
 
         }
-
+        function play_again(){
+            for (let i = 1; i <= 4; i++) {
+                    let option = 'option-button-' + i;
+                    document.getElementById(option).style.backgroundColor = '#0037ff';
+                }
+            document.getElementById('game-end').style.display = 'none';
+            get_ques(display_ques);
+        }
     </script>
     <div class="main">
         <div class="logo-container row">
             <div class="logo">
-                <img src="image/logo.jpg" alt="">
+                <img src="image/logo.png" alt="" width="30vw">
             </div>
         </div>
     </div>
@@ -100,7 +108,7 @@
             <p id="game-end-detail"></p>
             <p id="jita">AAPNE JITA: <span id="score"></span></p>
             <div class="play-again-container">
-                <button onclick="game_start()">Play Again</button>
+                <button onclick="play_again()">Play Again</button>
             </div>
         </div>
     </div>
@@ -165,40 +173,40 @@
 
         function countdown_timer() {
             time_left -= 1;
-            if (time_left < 0)
-            {    
-            time_left = 0;
-            clearInterval(timer);
+            if (time_left < 0) {
+                time_left = 0;
+                clearInterval(timer);
+                wrong("Time's Up");
+                
             }
             output('time', time_left);
         }
 
         function correct() {
             score = arr[(ques_no - 1)];
-            setTimeout(function(){
+            setTimeout(function() {
                 for (let i = 1; i <= 4; i++) {
-                let option = 'option-button-' + i;
-                document.getElementById(option).style.backgroundColor = '#000249';
-            }
+                    let option = 'option-button-' + i;
+                    document.getElementById(option).style.backgroundColor = '#0037ff';
+                }
                 get_ques(display_ques);
-                
-            },2000);
+
+            }, 2000);
         }
 
         function wrong(detail) {
-            console.log('inside');
-            document.getElementById('game-end').style.display = 'block';
-            setTimeout(function(){
+            setTimeout(function() {
+                document.getElementById('game-end').style.display = 'block';
                 output('score', score);
-            output('game-end-detail', detail);
-            },2000);
+                output('game-end-detail', detail);
+            }, 2000);
         }
 
         function check_ans(option_no) {
             let option = 'option-button-' + option_no;
 
             if (ans == option_no) {
-                document.getElementById(option).style.backgroundColor = 'Green';
+                document.getElementById(option).style.backgroundColor = 'rgb(92, 255, 59)';
                 clearInterval(timer);
                 correct();
             } else {
