@@ -21,12 +21,15 @@
         var ans = "";
         var ques_no = 0;
         var ques_serial_no = [];
-        var total_time = 0;
+        var timer;
+        var time_left;
+        var status = 1;
         var score = 0;
         var arr = ['5000', '10000', '20000', '40000', '80000', '160000', '320000', '640000', '1250000', '2500000', '5000000', '1 Crore', '3 Crore', '5 Crore', '7 Crore'];
 
         function get_ques(mycallback) {
             //using random() to get a ques_serial_no
+
             let total_ques = 6;
             let temp = ((Math.random()) * total_ques) + 1;
             temp = parseInt(temp);
@@ -34,13 +37,10 @@
                 temp = ((Math.random()) * total_ques) + 1;
             }
             ques_serial_no.push(temp);
-            console.log(temp);
-            console.log(ques_serial_no);
-            console.log("ques.php?id=" + temp);
+
             //get the ques
             var xhttp = new XMLHttpRequest();
-            console.log(xhttp.readyState);
-            console.log(xhttp.status);
+
             xhttp.open("GET", "ques.php?id=" + temp, true);
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
@@ -149,13 +149,17 @@
 
             // code for timer
             if (ques_no <= 5)
-                total_time = 45;
+                time_left = 45;
             else if (ques_no > 5 && ques_no <= 10)
-                total_time = 60;
+                time_left = 60;
             else
-                var total_time = null;
+                time_left = null;
 
-            countdown_timer(total_time,1);
+            timer = setInterval(countdown_timer, 1000);
+            if (time_left == 0) {
+                wrong("Time's Up");
+                clearInterval(timer);
+            }
         }
 
         // function reset() {
@@ -163,53 +167,47 @@
         //     document.getElementById(option).style.backgroundColor = 'rgb(0, 2, 73)';
         // }
 
-        function countdown_timer(t, counter) {
-            if (t == 60 || t == 45) {
-                if (counter == 1) {
-                    var time_left = t;
-                    var timer = setInterval(function() {
-
-                        time_left -= 1;
-                        output('time', time_left);
-                        if (time_left <= 0) {
-                            status = 0;
-                            wrong("Time's Up");
-                            if (time_left < 0)
-                                output('time', '0')
-                            reset();
-                        }
-
-                    }, 1000)
-                } else {
-                    clearInterval(timer);
-                }
+        function countdown_timer() {
+            time_left -= 1;
+            if (time_left < 0)
+            {    
+            time_left = 0;
+            clearInterval(timer);
             }
+            output('time', time_left);
         }
 
-            function correct() {
-                score = arr[(ques_no - 1)];
-                countdown_timer(45,0);
+        function correct() {
+            score = arr[(ques_no - 1)];
+            setTimeout(function(){
+                for (let i = 1; i <= 4; i++) {
+                let option = 'option-button-' + i;
+                document.getElementById(option).style.backgroundColor = '#000249';
+            }
                 get_ques(display_ques);
+                
+            },2000);
+        }
 
-            }
+        function wrong(detail) {
+            output('score', score);
+            output('game-end-detail', detail);
 
-            function wrong(detail) {
-                output('score', score);
-                output('game-end-detail', detail);
+        }
+
+        function check_ans(option_no) {
+            let option = 'option-button-' + option_no;
+
+            if (ans == option_no) {
+                document.getElementById(option).style.backgroundColor = 'Green';
                 clearInterval(timer);
+                correct();
+            } else {
+                document.getElementById(option).style.backgroundColor = 'Red';
+                clearInterval(timer);
+                wrong('Wrong Ans');
             }
-
-            function check_ans(option_no) {
-                let option = 'option-button-' + option_no;
-
-                if (ans == option_no) {
-                    document.getElementById(option).style.backgroundColor = 'Green';
-                    correct()
-                } else {
-                    document.getElementById(option).style.backgroundColor = 'Red';
-                    wrong('Wrong Ans');
-                }
-            }
+        }
     </script>
 
 </body>
