@@ -11,9 +11,9 @@ CREATE TABLE quiz(
 
 -- populate sql file
 
-INSERT INTO quiz VALUES(0,'The International Literacy Day is observed on','Sep 8','Nov 28','May 2','Sep 22','A');
+INSERT INTO quiz VALUES(0,'The International Literacy Day is observed on','Sep 8','Nov 28','May 2','Sep 22','1');
 INSERT INTO quiz VALUES(0,' 
-The language of Lakshadweep. a Union Territory of India, is','Tamil','Hindi','Malayalam','Telugu','C');
-INSERT INTO quiz VALUES(0,'Bahubali festival is related to','Islam','Hinduism','Buddhism','Jainism','D');
-INSERT INTO quiz VALUES(0,'Which day is observed as the World Standards  Day?','June 26','Oct 14','Nov 15','Dec 2','B');
-INSERT INTO quiz VALUES(0,'September 27 is celebrated every year as','Teachers Day','National Integration Day','World Tourism Day','International Literacy Day','C');
+The language of Lakshadweep. a Union Territory of India, is','Tamil','Hindi','Malayalam','Telugu','3');
+INSERT INTO quiz VALUES(0,'Bahubali festival is related to','Islam','Hinduism','Buddhism','Jainism','4');
+INSERT INTO quiz VALUES(0,'Which day is observed as the World Standards  Day?','June 26','Oct 14','Nov 15','Dec 2','2');
+INSERT INTO quiz VALUES(0,'September 27 is celebrated every year as','Teachers Day','National Integration Day','World Tourism Day','International Literacy Day','3');
