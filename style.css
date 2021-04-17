@@ -147,7 +147,7 @@ button:focus {
   outline: none;
 }
 div.option-column-container button:hover {
-  background: #ffd829;
+  background-color: #ffd829;
   cursor: pointer;
 }
 span.no {
